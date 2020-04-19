@@ -3,9 +3,10 @@
   <img width="180" src="hook.svg" alt="Hook">
   <br>
   <br>
-</div>
 
-# GitHub WebHook Handler
+  # GitHub Webhook Handler
+
+</div>
 
 [![Travis](https://badgen.net/travis/loilo/github-webhook-handler?icon=travis&label=unix)](https://travis-ci.org/loilo/github-webhook-handler)
 [![AppVeyor](https://badgen.net/appveyor/ci/loilo/github-webhook-handler?icon=appveyor&label=windows)](https://ci.appveyor.com/project/Loilo/github-webhook-handler)
