@@ -82,10 +82,11 @@ class Handler
             );
         }
 
+        $body = (string) $request->getBody();
         if ($request->getHeaderLine('Content-Type') === 'application/json') {
-            $body = (string) $request->getBody();
+            $payloadString = (string) $request->getBody();
         } else {
-            $body = $request->getParsedBody()['payload'] ?? '';
+            $payloadString = $request->getParsedBody()['payload'] ?? '';
         }
 
         // Validate secret if provided
@@ -122,9 +123,9 @@ class Handler
             }
         }
 
-        $parsedBody = json_decode($body, true);
+        $payload = json_decode($payloadString, true);
 
-        if (json_last_error() !== JSON_ERROR_NONE || !is_array($parsedBody)) {
+        if (json_last_error() !== JSON_ERROR_NONE || !is_array($payload)) {
             throw new Exceptions\InvalidPayloadException(
                 'Payload must be a JSON object.'
             );
@@ -132,7 +133,7 @@ class Handler
 
         return new Delivery(
             $request->getHeaderLine('X-GitHub-Event'),
-            $parsedBody
+            $payload
         );
     }
 

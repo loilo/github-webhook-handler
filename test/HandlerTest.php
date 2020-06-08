@@ -3,6 +3,7 @@
 namespace Loilo\GithubWebhook\Test;
 
 use GuzzleHttp\Psr7\ServerRequest;
+use GuzzleHttp\Psr7\Stream;
 use Loilo\GithubWebhook\Delivery;
 use Loilo\GithubWebhook\Exceptions;
 use Loilo\GithubWebhook\Handler;
@@ -73,12 +74,18 @@ class HandlerTest extends TestCase
     public function testHandleFormDataRequest()
     {
         $handler = new Handler($this::DEFAULT_SECRET);
+
+        $body = 'payload=%7B%22zen%22%3A%22Approachable+is+better+than+simple.%22%2C%22hook_id%22%3A202756468%2C%22sender%22%3A%7B%22url%22%3A%22https%3A%2F%2Fapi.github.com%2Fusers%2Floilo%22%7D%7D';
+        $bodyResource = fopen('data://text/plain,' . urlencode($body), 'r');
+        $bodyStream = new Stream($bodyResource);
+        parse_str($body, $payload);
+
         $request = $this->createRequest();
         $request = $request
             ->withHeader('Content-Type', 'application/x-www-form-urlencoded')
-            ->withParsedBody([
-                'payload' => (string) $request->getBody(),
-            ]);
+            ->withHeader('X-Hub-Signature', 'sha1=d8630d45bc36fea576504053fa14b5bf6db91047')
+            ->withBody($bodyStream)
+            ->withParsedBody($payload);
         $delivery = $handler->handle($request);
 
         $this->assertInstanceOf(Delivery::class, $delivery);
