@@ -8,8 +8,7 @@
 
 </div>
 
-[![Travis](https://badgen.net/travis/loilo/github-webhook-handler?icon=travis&label=unix)](https://travis-ci.org/loilo/github-webhook-handler)
-[![AppVeyor](https://badgen.net/appveyor/ci/loilo/github-webhook-handler?icon=appveyor&label=windows)](https://ci.appveyor.com/project/Loilo/github-webhook-handler)
+[![Tests](https://badgen.net/github/checks/loilo/github-webhook-handler/master)](https://github.com/loilo/github-webhook-handler/actions)
 [![Packagist](https://badgen.net/packagist/v/loilo/github-webhook-handler)](https://packagist.org/packages/loilo/github-webhook-handler)
 
 Handle GitHub webhooks with PHP.
